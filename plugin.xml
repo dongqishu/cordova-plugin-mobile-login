@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin id="cordova-plugin-mobile-login"
+  xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  version="1.0.0">  
+  <name>MobileLoginPlugin</name>   
+  <preference name="LOGINSECRETKEY"/>  
+  <preference name="LOGINPRIVACTWEB"/>  
+  <js-module name="MobileLoginPlugin" src="www/MobileLoginPlugin.js"> 
+    <clobbers target="MobileLoginPlugin"/> 
+  </js-module>
+
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+        <feature name="MobileLoginPlugin">
+            <param name="android-package" value="com.aliqin.mytel.MobileLoginPlugin"/>
+        </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application"> 
+      <meta-data android:name="LOGINSECRETKEY" android:value="$LOGINSECRETKEY"/>      <!-- 号码验证服务的密钥 -->
+      <meta-data android:name="LOGINPRIVACTWEB" android:value="$LOGINPRIVACTWEB"/>    <!-- 隐私协议 --> 
+    </config-file> 
+    <config-file parent="/*" target="AndroidManifest.xml"> 
+      <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络访问 -->
+      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 检查wifi网络状态 -->
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 检查网络状态 -->
+      <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 切换网络通道 -->
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 本地信息缓存 -->
+      <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 开关Wi-Fi状态，解决国内机型移动网络权限问题需要 --> 
+    </config-file>   
+    <source-file src="src/android/MobileLoginPlugin.java" target-dir="src/com/aliqin/mytel"/>   
+ 
+    <source-file src="src/android/NativeBackgroundAdapter.java" target-dir="src/com/aliqin/mytel"/>
+    <source-file src="src/android/GifAnimationDrawable.java" target-dir="src/com/aliqin/mytel"/>
+    <source-file src="src/android/Constant.java" target-dir="src/com/aliqin/mytel"/>
+    <source-file src="src/android/CacheManage.java" target-dir="src/com/aliqin/mytel"/>
+    <source-file src="src/android/AppUtils.java" target-dir="src/com/aliqin/mytel"/>
+
+    <!-- <source-file src="src/android/auth/CustomWebViewActivity.java" target-dir="src/com/aliqin/mytel/auth"/> -->
+    <!-- <source-file src="src/android/auth/NumberAuthActivity.java" target-dir="src/com/aliqin/mytel/auth"/> -->
+    <!-- <source-file src="src/android/auth/PersonActivity.java" target-dir="src/com/aliqin/mytel/auth"/> -->
+
+    <source-file src="src/android/config/BaseUIConfig.java" target-dir="src/com/aliqin/mytel/config"/>
+    <source-file src="src/android/config/FullLandConfig.java" target-dir="src/com/aliqin/mytel/config"/>
+    <source-file src="src/android/config/FullPortConfig.java" target-dir="src/com/aliqin/mytel/config"/>
+
+    <source-file src="src/android/login/OneKeyLoginActivity.java" target-dir="src/com/aliqin/mytel/login"/>
+
+    <source-file src="src/android/uitls/ExecutorManager.java" target-dir="src/com/aliqin/mytel/uitls"/>
+    <source-file src="src/android/uitls/MockRequest.java" target-dir="src/com/aliqin/mytel/uitls"/>
+    <source-file src="src/android/uitls/PermissionUtils.java" target-dir="src/com/aliqin/mytel/uitls"/>
+
+    <source-file src="src/android/res/layout/activity_login.xml" target-dir="src/main/res/layout"/>
+    <source-file src="src/android/res/layout/custom_full_port.xml" target-dir="src/main/res/layout"/>
+    <source-file src="src/android/res/color/selector_bottom_item_color.xml" target-dir="src/main/res/color"/>
+    <!-- <source-file src="src/android/res/xml/network_security_config.xml" target-dir="src/main/res/xml"/> -->
+
+    <source-file src="src/android/res/values/colors.xml" target-dir="src/main/res/values"  mode="overwrite"/>
+    <!-- <source-file src="src/android/res/values/strings.xml" target-dir="src/main/res/values"/> -->
+    <source-file src="src/android/res/values/styles.xml" target-dir="src/main/res/values"  mode="overwrite"/>
+
+    <source-file src="src/android/res/drawable/code.png" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/dialog_page_background.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+     <!-- <source-file src="src/android/res/drawable/ic_launcher_background.xml" target-dir="src/main/res/drawable"  mode="overwrite"/> -->
+    <source-file src="src/android/res/drawable/ic_vector_bottom_home.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/ic_vector_bottom_personal.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/login_btn_bg.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/mytel_app_launcher.png" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/page_background_color.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/phone.png" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/right.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/selector_btn.xml" target-dir="src/main/res/drawable" mode="overwrite"/>
+    <source-file src="src/android/res/drawable/shap_btn_normal.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+    <source-file src="src/android/res/drawable/shap_btn_press.xml" target-dir="src/main/res/drawable"  mode="overwrite"/>
+
+    <source-file src="src/android/res/drawable-xxhdpi/login_btn_normal.png" target-dir="src/main/res/drawable-xxhdpi"  mode="overwrite"/>  
+    <source-file src="src/android/res/drawable-xxhdpi/login_btn_press.png" target-dir="src/main/res/drawable-xxhdpi"  mode="overwrite"/>  
+    <source-file src="src/android/res/drawable-xxhdpi/login_btn_unable.png" target-dir="src/main/res/drawable-xxhdpi"  mode="overwrite"/>  
+    <source-file src="src/android/res/drawable-xxhdpi/icon_close.png" target-dir="src/main/res/drawable-xxhdpi"  mode="overwrite"/>  
+ 
+     
+    <source-file src="src/android/libs/auth_number_product-2.12.9-log-online-standard-release.aar" target-dir="libs" />
+    <source-file src="src/android/libs/crashshield-2.1.4-release.aar" target-dir="libs" />
+    <source-file src="src/android/libs/logger-2.1.4-release.aar" target-dir="libs" />
+    <source-file src="src/android/libs/main-2.1.4-release.aar" target-dir="libs" />
+
+    <framework src="src/android/gradle/aliMobleLogin.gradle" custom="true" type="gradleReference"/>
+
+    <activity android:name="com.aliqin.mytel.login.OneKeyLoginActivity"></activity>
+    <!-- 使用弹窗模式必须添加！！！ -->
+    <activity
+    android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"  
+    android:configChanges="orientation|keyboardHidden|screenSize"  
+    android:exported="false"
+    android:theme="@style/authsdk_activity_dialog"          
+    android:launchMode="singleTop" />  
+    <!--协议页面webview-->  
+    <activity  
+        android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"  
+        android:configChanges="orientation|keyboardHidden|screenSize"  
+        android:exported="false"  
+        android:launchMode="singleTop" 
+        android:screenOrientation="behind" />  
+    <!--移动授权页--> 
+    <activity  
+        android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"  
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:exported="false"  
+        android:launchMode="singleTop" />
+
+
+  </platform>  
+
+ 
+  <platform name="ios"> 
+    <config-file parent="/*" target="config.xml"> 
+      <feature name="MobileLoginPlugin"> 
+        <param name="ios-package" value="MobileLoginPlugin"/> 
+      </feature> 
+       <preference name="LOGINPRIVACTWEB" value="$LOGINPRIVACTWEB"/>
+    </config-file>  
+  
+
+     <header-file src="src/ios/MobileLoginPlugin.h"/> 
+     <source-file src="src/ios/MobileLoginPlugin.m"/> 
+
+    <framework src="src/ios/lib/ATAuthSDK.framework" custom="true"/>
+    <framework src="src/ios/lib/PNSNetDetect.framework" custom="true"/>
+    <framework src="src/ios/lib/YTXMonitor.framework" custom="true"/>
+    <framework src="src/ios/lib/YTXOperators.framework" custom="true"/>
+    
+    <framework src="Network.framework" />
+
+    <!--1 需手动拷贝到xcode的Resources下 ,
+    2 . 添加ATAuthSDK.framework > ATAuthSDK.bundle资源⽂件，否则⼀键登录授权⻚⾯默认的图⽚或icon不可显示
+      <source-file src="src/ios/res/image/login_btn_normal.png" target-dir="Resources" />
+    <source-file src="src/ios/res/image/login_btn_press.png" target-dir="Resources" />
+    <source-file src="src/ios/res/image/login_btn_unable.png" target-dir="Resources" /> 
+    -->
+
+  </platform> 
+ 
+ 
+</plugin>
