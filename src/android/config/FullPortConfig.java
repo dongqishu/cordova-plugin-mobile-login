@@ -19,6 +19,7 @@ import com.mobile.auth.gatewayauth.AuthUIControlClickListener;
 import com.mobile.auth.gatewayauth.CustomInterface;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.mobile.auth.gatewayauth.ResultCode;
+import com.aliqin.mytel.login.OneKeyLoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,7 +92,15 @@ public class FullPortConfig extends BaseUIConfig {
                     @Override
                     public void onClick(Context context) {
                          //Toast.makeText(mContext, "切换到短信登录方式", Toast.LENGTH_SHORT).show();
-                         MobileLoginPlugin.callJS("1|切换到短信登录方式"); //主动回调cordova,返回JS
+                         //MobileLoginPlugin.callJS("1|切换到短信登录方式"); //主动回调cordova,返回JS
+                         if(OneKeyLoginActivity._login_type.equals("1")) {
+                            MobileLoginPlugin.callJS("1|其他手机号登陆");
+                        }
+                        else if (OneKeyLoginActivity._login_type.equals("2")) {
+                            MobileLoginPlugin.callJS("2|其他手机号绑定");
+                        } else {
+                            MobileLoginPlugin.callJS("1|切换到短信登录方式");
+                        }
                          _this_act.onBackPressed();
                          mAuthHelper.quitLoginPage();
                     }
@@ -114,7 +123,7 @@ public class FullPortConfig extends BaseUIConfig {
                 .setWebViewStatusBarColor(Color.parseColor("#EEBC57"))
 
                 .setLightColor(false)
-                .setWebNavTextSizeDp(20)
+                .setWebNavTextSizeDp(18)
                 //图片或者xml的传参方式为不包含后缀名的全称 需要文件需要放在drawable或drawable-xxx目录下 in_activity.xml, mytel_app_launcher.png
                 .setAuthPageActIn("in_activity", "out_activity")
                 .setAuthPageActOut("in_activity", "out_activity")

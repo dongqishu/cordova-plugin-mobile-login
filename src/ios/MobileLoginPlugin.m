@@ -15,6 +15,7 @@
 
 @interface MobileLoginPlugin : CDVPlugin {
     NSString *webUrlString;
+    NSString *loginType;
 } 
  
 - (void)onekey_init:(CDVInvokedUrlCommand*)command;
@@ -80,7 +81,7 @@ static MobileLoginPlugin *selfplugin = nil;
 {
     selfplugin = self;
     myAsyncCallBackId = command.callbackId;
-    
+     self->loginType  = [command.arguments objectAtIndex:0];
     [self initOneKeyLoginBtn]; 
 }
  
@@ -91,7 +92,7 @@ static MobileLoginPlugin *selfplugin = nil;
     
     //自定义拉起授权页面
     TXCustomModel *model = [[TXCustomModel alloc] init];
-        model.navColor = UIColor.systemGreenColor;
+        model.navColor = UIColor.systemYellowColor;
         model.navTitle = [[NSAttributedString alloc] initWithString:@"一键登录"attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor,NSFontAttributeName : [UIFont systemFontOfSize:20.0]}];
        //选中后的颜色
        model.loginBtnBgImgs = @[[UIImage imageNamed:@"login_btn_normal"],[UIImage imageNamed:@"login_btn_unable"],[UIImage imageNamed:@"login_btn_press"]];
@@ -109,7 +110,7 @@ static MobileLoginPlugin *selfplugin = nil;
         //model.logoIsHidden = NO;
         //model.sloganIsHidden = NO;
     //一键登录slogan文案
-        model.sloganText = [[NSAttributedString alloc] initWithString:@"学习是一种时尚"attributes:@{NSForegroundColorAttributeName : UIColor.grayColor,NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
+        model.sloganText = [[NSAttributedString alloc] initWithString:@"保险人的精准营销平台"attributes:@{NSForegroundColorAttributeName : UIColor.grayColor,NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
         model.numberColor = UIColor.blackColor;
         model.numberFont = [UIFont systemFontOfSize:30.0];
         model.loginBtnText = [[NSAttributedString alloc] initWithString:@"一键登录"attributes:@{  NSForegroundColorAttributeName : UIColor.whiteColor,NSFontAttributeName : [UIFont systemFontOfSize:20.0]}];
@@ -122,7 +123,7 @@ static MobileLoginPlugin *selfplugin = nil;
         //model.privacyTwo = @[@"《隐私2》",@"https://www.taobao.com/"];
         model.privacyColors = @[UIColor.lightGrayColor,UIColor.blackColor];
         model.privacyAlignment = NSTextAlignmentCenter;
-        model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size:13.0];
+        model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size:12.0];
         model.privacyOperatorPreText = @"《";
         model.privacyOperatorSufText = @"》";
         //model.checkBoxIsHidden = NO;
@@ -135,7 +136,15 @@ static MobileLoginPlugin *selfplugin = nil;
     
         //添加自定义控件并对自定义控件进行布局
         __block UIButton *customBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [customBtn setTitle:@"切换到短信登录页面" forState:UIControlStateNormal];
+
+        if([self->loginType isEqual:@"1"]){
+            [customBtn setTitle:@"其他手机号登陆" forState:UIControlStateNormal];
+        }else if([self->loginType isEqual:@"2"]){
+            [customBtn setTitle:@"其他手机号绑定" forState:UIControlStateNormal];
+        }else{
+            [customBtn setTitle:@"切换到短信登录页面" forState:UIControlStateNormal];
+        }
+
         //[customBtn setBackgroundColor:UIColor.redColor];
         [customBtn setTitleColor:UIColor.blackColor forState:UIControlStateNormal ];
         customBtn.titleLabel.font = [UIFont systemFontOfSize: 14];
@@ -209,7 +218,13 @@ static MobileLoginPlugin *selfplugin = nil;
 
 -(void)msgButtonClick{
     [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-    [self sendCmd:  @"1|切换到短信登录方式"];
+    if([self->loginType isEqual:@"1"]){
+        [self sendCmd:  @"1|其他手机号登陆"];
+    }else if([self->loginType isEqual:@"2"]){
+        [self sendCmd:  @"2|其他手机号绑定"];
+    }else{
+        [self sendCmd:  @"1|切换到短信登录方式"];
+    }
 }
  
 @end

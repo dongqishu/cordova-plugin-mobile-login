@@ -44,6 +44,7 @@ public class OneKeyLoginActivity extends Activity {
 
     public static Context _this_context;
     public static Activity _this_activity;
+    public static String _login_type;  // 1:切换到其他手机号短信登录方式.  2:切换到其他手机号绑定页面
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
