@@ -113,6 +113,7 @@ public class FullPortConfig extends BaseUIConfig {
                 .setAppPrivacyOne("《隐私协议》", MobileLoginPlugin.myPrivacy_Web )
                 //.setAppPrivacyTwo("《百度》", "https://www.baidu.com")
                 .setAppPrivacyColor(Color.GRAY, Color.parseColor("#EEBC57"))
+				.setSloganText("保险人的精准营销平台")
                 //隐藏默认切换其他登录方式
                 .setSwitchAccHidden(true)
                 //隐藏默认Toast
@@ -124,6 +125,7 @@ public class FullPortConfig extends BaseUIConfig {
 
                 .setLightColor(false)
                 .setWebNavTextSizeDp(18)
+				.setPrivacyTextSizeDp(10)
                 //图片或者xml的传参方式为不包含后缀名的全称 需要文件需要放在drawable或drawable-xxx目录下 in_activity.xml, mytel_app_launcher.png
                 .setAuthPageActIn("in_activity", "out_activity")
                 .setAuthPageActOut("in_activity", "out_activity")
