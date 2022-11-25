@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 public class FullPortConfig extends BaseUIConfig {
     private final String TAG = "全屏竖屏样式";
+    private String btnText = "一键登录";
 
     public Activity _this_act;
 
@@ -36,6 +37,9 @@ public class FullPortConfig extends BaseUIConfig {
 
     @Override
     public void configAuthPage() {
+        if (OneKeyLoginActivity._login_type.equals("2")){
+            btnText = "一键绑定";
+        }
         mAuthHelper.setUIClickListener(new AuthUIControlClickListener() {
             @Override
             public void onClick(String code, Context context, String jsonString) {
@@ -110,6 +114,7 @@ public class FullPortConfig extends BaseUIConfig {
             authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_BEHIND;
         }
         mAuthHelper.setAuthUIConfig(new AuthUIConfig.Builder()
+                .setLogBtnText(btnText)
                 .setAppPrivacyOne("《隐私协议》", MobileLoginPlugin.myPrivacy_Web )
                 //.setAppPrivacyTwo("《百度》", "https://www.baidu.com")
                 .setAppPrivacyColor(Color.GRAY, Color.parseColor("#EEBC57"))
