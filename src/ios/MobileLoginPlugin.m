@@ -140,6 +140,8 @@ static MobileLoginPlugin *selfplugin = nil;
         if([self->loginType isEqual:@"1"]){
             [customBtn setTitle:@"其他手机号登陆" forState:UIControlStateNormal];
         }else if([self->loginType isEqual:@"2"]){
+            model.navTitle = [[NSAttributedString alloc] initWithString:@"一键绑定"attributes:@{NSForegroundColorAttributeName : UIColor.whiteColor,NSFontAttributeName : [UIFont systemFontOfSize:20.0]}];
+            model.loginBtnText = [[NSAttributedString alloc] initWithString:@"一键绑定"attributes:@{  NSForegroundColorAttributeName : UIColor.whiteColor,NSFontAttributeName : [UIFont systemFontOfSize:20.0]}];
             [customBtn setTitle:@"其他手机号绑定" forState:UIControlStateNormal];
         }else{
             [customBtn setTitle:@"切换到短信登录页面" forState:UIControlStateNormal];
